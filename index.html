@@ -125,19 +125,27 @@
 
         
             document.addEventListener('click', function (event) {
-            console.log('Клик зафиксирован!', event);
+                sendTracking('Клик зафиксирован!', event);
             });
 
 
             document.addEventListener('contextmenu', function (event) {
-            console.log('Правый клик (контекстное меню) зафиксирован!', event);
+                sendTracking('Правый клик (контекстное меню) зафиксирован!', event);
             });
 
             ['touchstart', 'touchend', 'touchcancel'].forEach(eventName => {
             document.addEventListener(eventName, function (event) {
-                console.log(`Событие: ${eventName}`, event);
+                sendTracking(`Событие: ${eventName}`, event);
             });
             });
+
+            document.addEventListener('visibilitychange', function () {
+  if (document.visibilityState === 'hidden') {
+    sendTracking('Пользователь покинул вкладку (но не закрыл).');
+  } else {
+    sendTracking('Пользователь вернулся на вкладку.');
+  }
+});
             </script>
 
         
